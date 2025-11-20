@@ -1,0 +1,1 @@
+# conda-snapshot-manager
