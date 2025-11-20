@@ -479,5 +479,5 @@ app.use((req, res) => {
 // 启动服务器
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(`Server running on http://localhost:${port}`);
 });
