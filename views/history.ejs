@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>快照历史 - Conda环境快照管理系统</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Conda环境快照管理系统</h1>
+            <div class="user-info">
+                <span>当前用户: <%= user.username %></span>
+                <a href="/logout" class="logout">退出登录</a>
+            </div>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="/view">查询快照</a></li>
+                <li><a href="/report">创建快照</a></li>
+                <li><a href="/history" class="active">快照历史</a></li>
+            </ul>
+        </nav>
+        
+        <main>
+            <h2>环境快照历史</h2>
+            <p>共 <%= nSnapshots %> 个快照</p>
+            
+            <% if (nSnapshots === 0) { %>
+                <div class="message info">暂无快照数据，请创建新的环境快照。</div>
+            <% } else { %>
+                <table class="snapshot-table">
+                    <thead>
+                        <tr>
+                            <th>环境名称</th>
+                            <th>类型</th>
+                            <th>创建时间</th>
+                            <th>包数量</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% snapshots.forEach(snapshot => { %>
+                            <tr>
+                                <td><%= snapshot.environmentName %></td>
+                                <td><%= snapshot.environmentType %></td>
+                                <td><%= new Date(snapshot.createdAt).toLocaleString() %></td>
+                                <td><%= snapshot.packages.length %></td>
+                                <td class="actions">
+                                    <a href="/update/<%= snapshot._id %>" class="btn edit">编辑</a>
+                                    <form action="/delete" method="post" class="delete-form">
+                                        <input type="hidden" name="_id" value="<%= snapshot._id %>">
+                                        <button type="submit" class="btn delete" onclick="return confirm('确定要删除此快照吗？')">删除</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            <% } %>
+        </main>
+    </div>
+</body>
+</html>

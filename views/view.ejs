@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>查询快照 - Conda环境快照管理系统</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Conda环境快照管理系统</h1>
+            <div class="user-info">
+                <span>当前用户: <%= user.username %></span>
+                <a href="/logout" class="logout">退出登录</a>
+            </div>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="/view" class="active">查询快照</a></li>
+                <li><a href="/report">创建快照</a></li>
+                <li><a href="/history">快照历史</a></li>
+            </ul>
+        </nav>
+        
+        <main>
+            <h2>查询环境快照</h2>
+            <form action="/view" method="post">
+                <div class="form-group">
+                    <label for="environmentName">环境名称:</label>
+                    <input type="text" id="environmentName" name="environmentName" placeholder="如: base, py38">
+                </div>
+                
+                <div class="form-group">
+                    <label for="environmentType">环境类型:</label>
+                    <select id="environmentType" name="environmentType">
+                        <option value="all">全部类型</option>
+                        <option value="正式环境">正式环境</option>
+                        <option value="预览环境">预览环境</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="packageName">包含包名:</label>
+                    <input type="text" id="packageName" name="packageName" placeholder="如: numpy, pandas">
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit">查询</button>
+                </div>
+            </form>
+        </main>
+    </div>
+</body>
+</html>

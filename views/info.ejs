@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>操作结果 - Conda环境快照管理系统</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Conda环境快照管理系统</h1>
+            <div class="user-info">
+                <% if (user) { %>
+                    <span>当前用户: <%= user.username %></span>
+                    <a href="/logout" class="logout">退出登录</a>
+                <% } %>
+            </div>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="/view">查询快照</a></li>
+                <li><a href="/report">创建快照</a></li>
+                <li><a href="/history">快照历史</a></li>
+            </ul>
+        </nav>
+        
+        <main>
+            <div class="message info">
+                <h2><%= message %></h2>
+            </div>
+            <div class="form-group" style="margin-top: 30px;">
+                <a href="/view" class="btn" style="text-decoration: none; padding: 12px 20px; background-color: #3498db; color: white; border-radius: 4px;">返回查询页面</a>
+                <a href="/report" class="btn" style="text-decoration: none; padding: 12px 20px; background-color: #28a745; color: white; border-radius: 4px; margin-left: 10px;">创建新快照</a>
+                <a href="/history" class="btn" style="text-decoration: none; padding: 12px 20px; background-color: #17a2b8; color: white; border-radius: 4px; margin-left: 10px;">查看快照历史</a>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
