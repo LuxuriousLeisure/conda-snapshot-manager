@@ -7,6 +7,8 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const { ObjectId } = require('mongodb');
 
+const GitHubStrategy = require('passport-github2').Strategy;
+
 // 导入模型
 const User = require('./models/user');
 const Snapshot = require('./models/snapshot');
@@ -62,6 +64,50 @@ passport.deserializeUser(async (id, done) => {
     done(err);
   }
 });
+
+//Github OAuth
+passport.use(new GitHubStrategy({
+    clientID: "Ov23liw2Bken2CAnHOS5",
+    clientSecret: "8df49b948c0b9cd09b6ddd464dced69f58e4a850",  
+    callbackURL: "http://localhost:3000/auth/github/callback"
+  },
+  async (accessToken, refreshToken, profile, done) => {
+    try {
+      // 检查用户是否已存在
+      let user = await User.findOne({ githubId: profile.id });
+      
+      if (user) {
+        // 用户已存在，直接返回
+        return done(null, user);
+      } else {
+        // 创建新用户
+        const newUser = new User({
+          username: profile.username,
+          password: Math.random().toString(36).substring(2),  // 随机密码，因为GitHub登录不需要密码
+          githubId: profile.id  // 添加githubId字段
+        });
+        
+        await newUser.save();
+        return done(null, newUser);
+      }
+    } catch (err) {
+      return done(err);
+    }
+  }
+));
+
+// 添加GitHub OAuth路由
+app.get('/auth/github',
+  passport.authenticate('github', { scope: ['user:email'] })
+);
+
+app.get('/auth/github/callback',
+  passport.authenticate('github', { failureRedirect: '/login' }),
+  (req, res) => {
+    // 认证成功，重定向到主页
+    res.redirect('/view');
+  }
+);
 
 // 请求日志中间件
 app.use((req, res, next) => {
