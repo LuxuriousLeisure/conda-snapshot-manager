@@ -69,7 +69,7 @@ passport.deserializeUser(async (id, done) => {
 passport.use(new GitHubStrategy({
     clientID: "Ov23liw2Bken2CAnHOS5",
     clientSecret: "8df49b948c0b9cd09b6ddd464dced69f58e4a850",  
-    callbackURL: "http://localhost:3000/auth/github/callback"
+    callbackURL: "https://conda-snapshot-manager.vercel.app/auth/github/callback" //"http://localhost:3000/auth/github/callback"
   },
   async (accessToken, refreshToken, profile, done) => {
     try {
@@ -122,7 +122,7 @@ const isLoggedIn = (req, res, next) => {
 };
 
 // MongoDB 连接
-const mongourl = 'mongodb+srv://wuyou007991:007991@cluster0.ashcnqc.mongodb.net/?appName=Cluster0';
+const mongourl = process.env.MONGO_URL//'mongodb+srv://wuyou007991:007991@cluster0.ashcnqc.mongodb.net/?appName=Cluster0';
 const dbName = 'CondaSnapshots';
 
 mongoose.connect(mongourl, { dbName: dbName })
@@ -526,4 +526,5 @@ app.use((req, res) => {
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
+
 });
