@@ -25,7 +25,8 @@ app.set('view engine', 'ejs');
 app.set('views', viewsPath); 
 
 // 静态文件目录
-app.use(express.static('public'));
+const publicPath = path.join(__dirname, 'public');
+app.use(express.static('publicPath'));
 
 // 中间件配置
 app.use(bodyParser.json()); 
@@ -552,3 +553,4 @@ app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 
 });
+
