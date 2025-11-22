@@ -1,0 +1,48 @@
+# ===================== Node.js 核心依赖忽略 =====================
+# 依赖目录（体积大，可通过 npm install 重新安装，无需提交）
+node_modules/
+# npm 缓存文件
+.npm/
+# yarn 缓存（若用 yarn 则保留，不用则可删）
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+
+# ===================== 敏感信息/环境变量忽略 =====================
+# 本地环境变量文件（含数据库密钥、OAuth 密钥，绝对不能提交）
+.env
+.env.local
+.env.development
+.env.production
+
+# ===================== 编辑器/开发工具配置 =====================
+# VS Code 配置目录
+.vscode/
+# JetBrains 系列编辑器（WebStorm/IDEA）配置
+.idea/
+# Vim 编辑器临时文件
+*.swp
+*.swo
+# Emacs 编辑器临时文件
+*~
+
+# ===================== 日志/临时文件忽略 =====================
+# 日志文件
+logs/
+*.log
+error.log
+access.log
+# 临时文件目录
+tmp/
+temp/
+# 系统临时文件
+.DS_Store       # MacOS 系统文件
+Thumbs.db       # Windows 系统文件
+
+# ===================== 构建/打包产物（可选） =====================
+# 若项目后续有前端打包产物（如 React/Vue 构建的 dist），可保留
+# dist/
+# build/
+# 若用 TypeScript 编译的 js 文件（你的项目是纯 JS，可删）
+# dist/
+# *.js.map
