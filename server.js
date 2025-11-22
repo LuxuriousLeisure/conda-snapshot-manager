@@ -9,6 +9,11 @@ const { ObjectId } = require('mongodb');
 
 const GitHubStrategy = require('passport-github2').Strategy;
 
+// 新增：加载环境变量（本地开发用 .env，Vercel 用控制台配置）
+require('dotenv').config();
+
+const MongoStore = require('connect-mongo');
+
 // 导入模型
 const User = require('./models/user');
 const Snapshot = require('./models/snapshot');
@@ -24,9 +29,17 @@ app.use(express.static('public'));
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(session({
-    secret: "CondaSnapshotSecret",
-    resave: true,
-    saveUninitialized: true
+    // secret: "CondaSnapshotSecret",
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({ 
+      mongoUrl: process.env.MONGODB_URI,
+      ttl: 14 * 24 * 60 * 60 // 14 天
+    }),
+    cookie:{
+      secure: process.env.NODE_ENV === 'production', // 生产环境使用 secure cookies
+    }
 }));
 
 // Passport 配置
@@ -67,9 +80,12 @@ passport.deserializeUser(async (id, done) => {
 
 //Github OAuth
 passport.use(new GitHubStrategy({
-    clientID: "Ov23liw2Bken2CAnHOS5",
-    clientSecret: "8df49b948c0b9cd09b6ddd464dced69f58e4a850",  
-    callbackURL: "http://localhost:3000/auth/github/callback"
+    // clientID: "Ov23liw2Bken2CAnHOS5",
+    // clientSecret: "8df49b948c0b9cd09b6ddd464dced69f58e4a850",  
+    // callbackURL: "http://localhost:3000/auth/github/callback"
+    clientID: process.env.GITHUB_CLIENT_ID,
+    clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    callbackURL: process.env.GITHUB_CALLBACK_URL
   },
   async (accessToken, refreshToken, profile, done) => {
     try {
@@ -122,8 +138,10 @@ const isLoggedIn = (req, res, next) => {
 };
 
 // MongoDB 连接
-const mongourl = 'mongodb+srv://wuyou007991:007991@cluster0.ashcnqc.mongodb.net/?appName=Cluster0';
-const dbName = 'CondaSnapshots';
+// const mongourl = 'mongodb+srv://wuyou007991:007991@cluster0.ashcnqc.mongodb.net/?appName=Cluster0';
+// const dbName = 'CondaSnapshots';
+const mongourl = process.env.MONGODB_URI;
+const dbName = process.env.DB_NAME || 'CondaSnapshots';
 
 mongoose.connect(mongourl, { dbName: dbName })
   .then(() => console.log('Connected to MongoDB'))
@@ -523,7 +541,11 @@ app.use((req, res) => {
 });
 
 // 启动服务器
+// const port = process.env.PORT || 3000;
+// app.listen(port, () => {
+//   console.log(`Server running on http://localhost:${port}`);
+// });
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+  console.log(`Server running on port ${port}`);
 });
