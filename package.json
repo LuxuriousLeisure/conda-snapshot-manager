@@ -1,6 +1,6 @@
 {
   "name": "conda-snapshot-manager",
-  "description": "Conda环境快照管理系统",
+  "description": "",
   "version": "1.0.0",
   "main": "server.js",
   "dependencies": {
@@ -22,9 +22,10 @@
     "dev": "nodemon server.js"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": "20.x"
   },
   "keywords": ["conda", "snapshot", "manager"],
   "author": "",
   "license": "MIT"
+
 }
