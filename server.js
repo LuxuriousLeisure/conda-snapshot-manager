@@ -7,6 +7,8 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const { ObjectId } = require('mongodb');
 
+require('dotenv').config();
+
 const GitHubStrategy = require('passport-github2').Strategy;
 
 // 导入模型
@@ -528,3 +530,4 @@ app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 
 });
+
