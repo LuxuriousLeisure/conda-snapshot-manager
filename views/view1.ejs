@@ -1,79 +1,79 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>查询结果 - Conda环境快照管理系统</title>
+    <title>Query Results - Conda Environment Snapshot Manager</title>
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Conda环境快照管理系统</h1>
+            <h1>Conda Environment Snapshot Manager</h1>
             <div class="user-info">
-                <span>当前用户: <%= user.username %></span>
-                <a href="/logout" class="logout">退出登录</a>
+                <span>Current User: <%= user.username %></span>
+                <a href="/logout" class="logout">Logout</a>
             </div>
         </header>
         
         <nav>
             <ul>
-                <li><a href="/view" class="active">查询快照</a></li>
-                <li><a href="/report">创建快照</a></li>
-                <li><a href="/history">快照历史</a></li>
+                <li><a href="/view" class="active">Query Snapshots</a></li>
+                <li><a href="/report">Create Snapshot</a></li>
+                <li><a href="/history">Snapshot History</a></li>
             </ul>
         </nav>
         
         <main>
-            <h2>快照查询结果</h2>
+            <h2>Snapshot Query Results</h2>
             
             <% if (message) { %>
                 <div class="message info"><%= message %></div>
             <% } else { %>
-                <p>共找到 <%= snapshots.length %> 个符合条件的快照</p>
+                <p>Found <%= snapshots.length %> matching snapshots</p>
             <% } %>
             
             <% if (snapshots.length > 0) { %>
                 <table class="snapshot-table">
                     <thead>
                         <tr>
-                            <th>环境名称</th>
-                            <th>环境类型</th>
-                            <th>创建时间</th>
-                            <th>包数量</th>
-                            <th>描述</th>
-                            <th>操作</th>
+                            <th>Environment Name</th>
+                            <th>Environment Type</th>
+                            <th>Creation Time</th>
+                            <th>Number of Packages</th>
+                            <th>Description</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <% snapshots.forEach(snapshot => { %>
                             <tr>
                                 <td><%= snapshot.environmentName %></td>
-                                <td><%= snapshot.environmentType %></td>
+                                <td><%= snapshot.environmentType === '正式环境' ? 'Production Environment' : 'Preview Environment' %></td>
                                 <td><%= new Date(snapshot.createdAt).toLocaleString() %></td>
                                 <td><%= snapshot.packages.length %></td>
-                                <td><%= snapshot.description || '无' %></td>
+                                <td><%= snapshot.description || 'None' %></td>
                                 <td class="actions">
-                                    <a href="/update/<%= snapshot._id %>" class="btn edit">编辑</a>
+                                    <a href="/update/<%= snapshot._id %>" class="btn edit">Edit</a>
                                 </td>
                             </tr>
                         <% }) %>
                     </tbody>
                 </table>
 
-                <!-- 包列表预览弹窗（可选，点击行查看） -->
+                <!-- Package list preview popup (optional, click row to view) -->
                 <script>
-                    // 可选：点击行展示包列表详情
+                    // Optional: Click row to show package list details
                     document.querySelectorAll('.snapshot-table tr').forEach(row => {
                         row.addEventListener('click', function() {
                             const pkgCount = this.cells[3].textContent;
                             const envName = this.cells[0].textContent;
-                            alert(`环境 ${envName} 包含 ${pkgCount} 个包，可点击「编辑」查看详细包列表`);
+                            alert(`Environment ${envName} contains ${pkgCount} packages. Click "Edit" to view the detailed package list`);
                         });
                     });
                 </script>
             <% } %>
             
             <div class="form-group" style="margin-top: 30px;">
-                <a href="/view" class="btn" style="text-decoration: none; padding: 12px 20px; background-color: #3498db; color: white; border-radius: 4px;">重新查询</a>
+                <a href="/view" class="btn" style="text-decoration: none; padding: 12px 20px; background-color: #3498db; color: white; border-radius: 4px;">Query Again</a>
             </div>
         </main>
     </div>
