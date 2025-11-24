@@ -1,70 +1,70 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>更新快照 - Conda环境快照管理系统</title>
+    <title>Update Snapshot - Conda Environment Snapshot Manager</title>
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Conda环境快照管理系统</h1>
+            <h1>Conda Environment Snapshot Manager</h1>
             <div class="user-info">
-                <span>当前用户: <%= user.username %></span>
-                <a href="/logout" class="logout">退出登录</a>
+                <span>Current User: <%= user.username %></span>
+                <a href="/logout" class="logout">Logout</a>
             </div>
         </header>
         
         <nav>
             <ul>
-                <li><a href="/view">查询快照</a></li>
-                <li><a href="/report">创建快照</a></li>
-                <li><a href="/history">快照历史</a></li>
+                <li><a href="/view">Query Snapshots</a></li>
+                <li><a href="/report">Create Snapshot</a></li>
+                <li><a href="/history">Snapshot History</a></li>
             </ul>
         </nav>
         
         <main>
-            <h2>更新环境快照</h2>
-            <p>修改以下信息后提交，将更新该快照的内容（<code>conda list</code>文本修改后会重新解析包信息）。</p>
+            <h2>Update Environment Snapshot</h2>
+            <p>Modify the following information and submit to update the snapshot content (the <code>conda list</code> text will be re-parsed for package information after modification).</p>
             
             <form action="/update/<%= snapshot._id %>" method="post">
                 <div class="form-group">
-                    <label for="environmentName">环境名称 <span class="required">*</span>:</label>
+                    <label for="environmentName">Environment Name <span class="required">*</span>:</label>
                     <input type="text" id="environmentName" name="environmentName" required 
-                           value="<%= snapshot.environmentName %>" placeholder="如: base, py38">
+                           value="<%= snapshot.environmentName %>" placeholder="e.g.: base, py38">
                 </div>
                 
                 <div class="form-group">
-                    <label for="environmentType">环境类型 <span class="required">*</span>:</label>
+                    <label for="environmentType">Environment Type <span class="required">*</span>:</label>
                     <select id="environmentType" name="environmentType" required>
-                        <option value="正式环境" <%= snapshot.environmentType === '正式环境' ? 'selected' : '' %>>正式环境</option>
-                        <option value="预览环境" <%= snapshot.environmentType === '预览环境' ? 'selected' : '' %>>预览环境</option>
+                        <option value="Production" <%= snapshot.environmentType === 'Production' ? 'selected' : '' %>>Production Environment</option>
+                        <option value="Preview" <%= snapshot.environmentType === 'Preview' ? 'selected' : '' %>>Preview Environment</option>
                     </select>
                 </div>
                 
                 <div class="form-group">
-                    <label for="description">描述:</label>
-                    <textarea id="description" name="description" rows="3" placeholder="可选：描述此环境的用途、特点等"><%= snapshot.description || '' %></textarea>
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" rows="3" placeholder="Optional: Describe the purpose, characteristics, etc. of this environment"><%= snapshot.description || '' %></textarea>
                 </div>
                 
                 <div class="form-group">
-                    <label for="rawText">Conda环境列表 <span class="required">*</span>:</label>
-                    <textarea id="rawText" name="rawText" rows="15" required placeholder="粘贴conda list命令的输出结果（从包列表开始，不包含注释行）"><%= snapshot.rawText %></textarea>
-                    <p class="hint">当前解析出 <%= snapshot.packages.length %> 个包，修改文本后会重新解析。</p>
+                    <label for="rawText">Conda Environment List <span class="required">*</span>:</label>
+                    <textarea id="rawText" name="rawText" rows="15" required placeholder="Paste the output of the conda list command (starting from the package list, excluding comment lines)"><%= snapshot.rawText %></textarea>
+                    <p class="hint">Currently parsed <%= snapshot.packages.length %> packages. The text will be re-parsed after modification.</p>
                 </div>
                 
                 <div class="form-group">
-                    <button type="submit">保存更新</button>
-                    <a href="/history" style="margin-left: 10px; padding: 12px 20px; background-color: #6c757d; color: white; border-radius: 4px; text-decoration: none;">取消</a>
+                    <button type="submit">Save Updates</button>
+                    <a href="/history" style="margin-left: 10px; padding: 12px 20px; background-color: #6c757d; color: white; border-radius: 4px; text-decoration: none;">Cancel</a>
                 </div>
             </form>
 
-            <!-- 展示当前解析的包列表预览 -->
+            <!-- Display current parsed package list preview -->
             <div class="form-group" style="margin-top: 30px;">
-                <h3>当前包列表预览（<%= snapshot.packages.length %> 个）</h3>
+                <h3>Current Package List Preview (<%= snapshot.packages.length %> items)</h3>
                 <div class="package-list">
                     <% snapshot.packages.forEach(pkg => { %>
                         <div class="package-item">
-                            <strong><%= pkg.name %></strong> - 版本: <%= pkg.version %> | 构建: <%= pkg.build || '无' %> | 渠道: <%= pkg.channel || '无' %>
+                            <strong><%= pkg.name %></strong> - Version: <%= pkg.version %> | Build: <%= pkg.build || 'None' %> | Channel: <%= pkg.channel || 'None' %>
                         </div>
                     <% }) %>
                 </div>
