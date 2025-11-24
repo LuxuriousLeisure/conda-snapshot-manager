@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>操作结果 - Conda环境快照管理系统</title>
+    <title>Operation Result - Conda Environment Snapshot Manager</title>
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Conda环境快照管理系统</h1>
+            <h1>Conda Environment Snapshot Manager</h1>
             <div class="user-info">
                 <% if (user) { %>
-                    <span>当前用户: <%= user.username %></span>
-                    <a href="/logout" class="logout">退出登录</a>
+                    <span>Current User: <%= user.username %></span>
+                    <a href="/logout" class="logout">Logout</a>
                 <% } %>
             </div>
         </header>
         
         <nav>
             <ul>
-                <li><a href="/view">查询快照</a></li>
-                <li><a href="/report">创建快照</a></li>
-                <li><a href="/history">快照历史</a></li>
+                <li><a href="/view">Query Snapshots</a></li>
+                <li><a href="/report">Create Snapshot</a></li>
+                <li><a href="/history">Snapshot History</a></li>
             </ul>
         </nav>
         
@@ -29,9 +29,9 @@
                 <h2><%= message %></h2>
             </div>
             <div class="form-group" style="margin-top: 30px;">
-                <a href="/view" class="btn" style="text-decoration: none; padding: 12px 20px; background-color: #3498db; color: white; border-radius: 4px;">返回查询页面</a>
-                <a href="/report" class="btn" style="text-decoration: none; padding: 12px 20px; background-color: #28a745; color: white; border-radius: 4px; margin-left: 10px;">创建新快照</a>
-                <a href="/history" class="btn" style="text-decoration: none; padding: 12px 20px; background-color: #17a2b8; color: white; border-radius: 4px; margin-left: 10px;">查看快照历史</a>
+                <a href="/view" class="btn" style="text-decoration: none; padding: 12px 20px; background-color: #3498db; color: white; border-radius: 4px;">Return to Query Page</a>
+                <a href="/report" class="btn" style="text-decoration: none; padding: 12px 20px; background-color: #28a745; color: white; border-radius: 4px; margin-left: 10px;">Create New Snapshot</a>
+                <a href="/history" class="btn" style="text-decoration: none; padding: 12px 20px; background-color: #17a2b8; color: white; border-radius: 4px; margin-left: 10px;">View Snapshot History</a>
             </div>
         </main>
     </div>
