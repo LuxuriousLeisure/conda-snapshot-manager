@@ -1,55 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>创建快照 - Conda环境快照管理系统</title>
+    <title>Create Snapshot - Conda Environment Snapshot Manager</title>
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Conda环境快照管理系统</h1>
+            <h1>Conda Environment Snapshot Manager</h1>
             <div class="user-info">
-                <span>当前用户: <%= user.username %></span>
-                <a href="/logout" class="logout">退出登录</a>
+                <span>Current User: <%= user.username %></span>
+                <a href="/logout" class="logout">Logout</a>
             </div>
         </header>
         
         <nav>
             <ul>
-                <li><a href="/view">查询快照</a></li>
-                <li><a href="/report" class="active">创建快照</a></li>
-                <li><a href="/history">快照历史</a></li>
+                <li><a href="/view">Query Snapshots</a></li>
+                <li><a href="/report" class="active">Create Snapshot</a></li>
+                <li><a href="/history">Snapshot History</a></li>
             </ul>
         </nav>
         
         <main>
-            <h2>创建环境快照</h2>
-            <p>在Linux终端的conda环境中运行 <code>conda list</code>，复制环境列表（从包列表开始，不包含注释行）到下方文本框。</p>
+            <h2>Create Environment Snapshot</h2>
+            <p>Run <code>conda list</code> in your Conda environment on Linux terminal, copy the environment list (starting from the package list, excluding comment lines) into the text box below.</p>
             
             <form action="/report" method="post">
                 <div class="form-group">
-                    <label for="environmentName">环境名称 <span class="required">*</span>:</label>
-                    <input type="text" id="environmentName" name="environmentName" required placeholder="如: base, py38">
+                    <label for="environmentName">Environment Name <span class="required">*</span>:</label>
+                    <input type="text" id="environmentName" name="environmentName" required placeholder="e.g.: base, py38">
                 </div>
                 
                 <div class="form-group">
-                    <label for="environmentType">环境类型 <span class="required">*</span>:</label>
+                    <label for="environmentType">Environment Type <span class="required">*</span>:</label>
                     <select id="environmentType" name="environmentType" required>
-                        <option value="">请选择类型</option>
-                        <option value="正式环境">正式环境</option>
-                        <option value="预览环境">预览环境</option>
+                        <option value="">Please select type</option>
+                        <option value="正式环境">Production Environment</option>
+                        <option value="预览环境">Preview Environment</option>
                     </select>
                 </div>
                 
                 <div class="form-group">
-                    <label for="description">描述:</label>
-                    <textarea id="description" name="description" rows="3" placeholder="可选：描述此环境的用途、特点等"></textarea>
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" rows="3" placeholder="Optional: Describe the purpose, features, etc. of this environment"></textarea>
                 </div>
                 
                 <div class="form-group">
-                    <label for="rawText">Conda环境列表 <span class="required">*</span>:</label>
-                    <textarea id="rawText" name="rawText" rows="15" required placeholder="粘贴conda list命令的输出结果（从包列表开始，不包含注释行）"></textarea>
-                    <p class="hint">示例：
+                    <label for="rawText">Conda Environment List <span class="required">*</span>:</label>
+                    <textarea id="rawText" name="rawText" rows="15" required placeholder="Paste the output of the conda list command (starting from the package list, excluding comment lines)"></textarea>
+                    <p class="hint">Example:
                         <pre>_libgcc_mutex 0.1 main
 _openmp_mutex 5.1 1_gnu
 anaconda-anon-usage 0.7.1 py313hfc0e8ea_100
@@ -58,7 +58,7 @@ annotated-types 0.6.0 py313h06a4308_0</pre>
                 </div>
                 
                 <div class="form-group">
-                    <button type="submit">创建快照</button>
+                    <button type="submit">Create Snapshot</button>
                 </div>
             </form>
         </main>
