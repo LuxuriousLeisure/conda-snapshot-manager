@@ -24,7 +24,7 @@ const snapshotSchema = new mongoose.Schema({
   },
   environmentType: {
     type: String,
-    enum: ['正式环境', '预览环境'],
+    enum: ['Production', 'Preview'],
     required: true
   },
   packages: [packageSchema],
@@ -45,5 +45,6 @@ const snapshotSchema = new mongoose.Schema({
     required: true
   }
 });
+
 
 module.exports = mongoose.model('Snapshot', snapshotSchema);
