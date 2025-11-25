@@ -1,3 +1,4 @@
+/* 全局基础设置 */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -5,56 +6,61 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     line-height: 1.6;
-    color: #333;
-    background-color: #f4f4f4;
+    color: #c9d1d9;              /* 主文字颜色 */
+    background-color: #0d1117;   /* GitHub 深色背景 */
 }
 
+/* 容器 */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
 
+/* Header */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
     padding-bottom: 15px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #30363d;
 }
 
 h1, h2, h3 {
     margin-bottom: 20px;
-    color: #2c3e50;
+    color: #c9d1d9;
 }
 
+/* 导航栏 */
 nav ul {
     display: flex;
     list-style: none;
     margin-bottom: 30px;
-    background-color: #3498db;
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-nav ul li {
-    margin: 0;
+    border-bottom: 1px solid #30363d;
+    padding: 0.5rem 0;
 }
 
 nav ul li a {
     display: block;
-    padding: 12px 20px;
-    color: white;
+    padding: 8px 16px;
+    color: #c9d1d9;
     text-decoration: none;
+    border-radius: 6px;
 }
 
-nav ul li a:hover, nav ul li a.active {
-    background-color: #2980b9;
+nav ul li a:hover {
+    background-color: #21262d;
 }
 
+nav ul li a.active {
+    background-color: #161b22;
+    border: 1px solid #30363d;
+}
+
+/* 表单 */
 .form-group {
     margin-bottom: 20px;
 }
@@ -62,59 +68,84 @@ nav ul li a:hover, nav ul li a.active {
 label {
     display: block;
     margin-bottom: 8px;
-    font-weight: bold;
+    font-weight: 600;
+    color: #c9d1d9;
 }
 
 input, select, textarea {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    border: 1px solid #30363d;
+    border-radius: 6px;
     font-size: 16px;
+    background-color: #161b22;
+    color: #c9d1d9;
 }
 
-textarea {
-    resize: vertical;
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #1f6feb;
 }
 
-button {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 4px;
+/* 按钮 */
+button, .btn {
+    background-color: #21262d;
+    color: #c9d1d9;
+    border: 1px solid #30363d;
+    padding: 8px 16px;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
+    font-weight: 500;
 }
 
-button:hover {
-    background-color: #2980b9;
+button:hover, .btn:hover {
+    background-color: #30363d;
 }
 
+/* 特殊按钮 */
+.edit {
+    background-color: #1f6feb;
+    color: #ffffff;
+    border: none;
+}
+.edit:hover {
+    background-color: #1158c7;
+}
+
+.delete {
+    background-color: #da3633;
+    color: #ffffff;
+    border: none;
+}
+.delete:hover {
+    background-color: #b62324;
+}
+
+/* 消息提示 */
 .message {
     padding: 15px;
     margin-bottom: 20px;
-    border-radius: 4px;
+    border-radius: 6px;
+    border: 1px solid #30363d;
 }
 
 .error {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
+    background-color: #490202;
+    color: #f85149;
 }
 
 .info {
-    background-color: #d1ecf1;
-    color: #0c5460;
-    border: 1px solid #bee5eb;
+    background-color: #161b22;
+    color: #8b949e;
 }
 
 .success {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
+    background-color: #033a16;
+    color: #3fb950;
 }
 
+/* 表格 */
 .snapshot-table {
     width: 100%;
     border-collapse: collapse;
@@ -124,106 +155,68 @@ button:hover {
 .snapshot-table th, .snapshot-table td {
     padding: 12px 15px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #30363d;
 }
 
 .snapshot-table th {
-    background-color: #f8f9fa;
-    font-weight: bold;
+    color: #c9d1d9;
+    font-weight: 600;
+    background-color: #0d1117;
 }
 
 .snapshot-table tr:hover {
-    background-color: #f8f9fa;
+    background-color: #161b22;
 }
 
-.actions {
-    display: flex;
-    gap: 10px;
-}
-
-.btn {
-    padding: 6px 12px;
-    border-radius: 4px;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-.edit {
-    background-color: #28a745;
-    color: white;
-}
-
-.edit:hover {
-    background-color: #218838;
-}
-
-.delete {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    cursor: pointer;
-    padding: 6px 12px;
-    font-size: 14px;
-}
-
-.delete:hover {
-    background-color: #c82333;
-}
-
-.delete-form {
-    margin: 0;
-}
-
+/* 用户信息 */
 .user-info {
     text-align: right;
+    color: #8b949e;
 }
 
 .logout {
-    color: #dc3545;
+    color: #f78166;
     text-decoration: none;
     margin-left: 15px;
 }
-
 .logout:hover {
     text-decoration: underline;
 }
 
+/* 辅助元素 */
 .required {
-    color: #dc3545;
+    color: #f85149;
 }
 
 .hint {
     margin-top: 5px;
     font-size: 14px;
-    color: #6c757d;
+    color: #8b949e;
 }
 
-pre {
-    background-color: #f8f9fa;
-    padding: 10px;
-    border-radius: 4px;
+pre, code {
+    background-color: #161b22;
+    padding: 6px 10px;
+    border-radius: 6px;
     font-size: 13px;
     overflow-x: auto;
+    color: #c9d1d9;
 }
 
-code {
-    background-color: #f8f9fa;
-    padding: 2px 4px;
-    border-radius: 2px;
-    font-family: monospace;
-}
-
+/* 包列表 */
 .package-list {
     margin-top: 15px;
     max-height: 400px;
     overflow-y: auto;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    background-color: #161b22;
 }
 
 .package-item {
     padding: 8px 15px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #30363d;
+    color: #c9d1d9;
 }
 
 .package-item:last-child {
